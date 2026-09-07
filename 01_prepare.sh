@@ -129,3 +129,20 @@ default_settings="package/emortal/default-settings/files/99-default-settings"
 if [ -f "$default_settings" ] && ! grep -q 'trojan-go' "$default_settings"; then
   sed -i "s#exit 0#[ ! -f '/usr/sbin/trojan' ] \\&\\& [ -f '/usr/bin/trojan-go' ] \\&\\& ln -sf /usr/bin/trojan-go /usr/bin/trojan\\nexit 0#" "$default_settings"
 fi
+#1、兜底强制apk官方源，隔绝vsean
+mkdir -p files/etc/apk/repositories.d
+cat > files/etc/apk/repositories.d/distfeeds.list <<'EOF'
+https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/base
+https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/luci
+https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/packages
+EOF
+
+#2、开机伪装网页型号为 SR503
+mkdir -p files/etc/uci-defaults
+cat > files/etc/uci-defaults/99-fake-model <<'EOL'
+#!/bin/sh
+sed -i 's/honor_fur-602/SR503/g' /etc/board.info
+sed -i 's/Honor FUR-602/SR503/g' /etc/board.info
+exit 0
+EOL
+chmod +x files/etc/uci-defaults/99-fake-model

@@ -132,9 +132,10 @@ fi
 #1、兜底强制apk官方源，隔绝vsean
 mkdir -p files/etc/apk/repositories.d
 cat > files/etc/apk/repositories.d/distfeeds.list <<'EOF'
-https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/base
-https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/luci
-https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/packages
+https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/luci/packages.adb
+https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/packages/packages.adb
+https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/routing/packages.adb
+https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/telephony/packages.adb
 EOF
 # =====伪装网页型号 RuiJie SR503 （FUR‑603底层硬件ID不变）=====
 mkdir -p files/etc/uci-defaults

@@ -136,13 +136,21 @@ https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/b
 https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/luci
 https://downloads.immortalwrt.org/releases/25.12.0/packages/aarch64_cortex-a53/packages
 EOF
-
-#2、开机伪装网页型号为 SR503
+# =====伪装网页型号 RuiJie SR503 （FUR‑603底层硬件ID不变）=====
 mkdir -p files/etc/uci-defaults
-cat > files/etc/uci-defaults/99-fake-model <<'EOL'
+cat > files/etc/uci-defaults/99_fake_ruijie <<'EOF'
 #!/bin/sh
-sed -i 's/honor_fur-602/SR503/g' /etc/board.info
-sed -i 's/Honor FUR-602/SR503/g' /etc/board.info
+# 替换LuCI首页系统信息 /tmp/sysinfo/model
+echo "RuiJie SR503" > /tmp/sysinfo/model
+
+# 修改 board.json 网页硬件信息
+if [ -f /etc/board.json ]; then
+  sed -i 's|"name": *"HONOR FUR-602/603"|"name":"RuiJie SR503"|g' /etc/board.json
+fi
+
+# 兼容老版 board.info
+[ -f /etc/board.info ] && sed -i 's/HONOR FUR-602\/603/RuiJie SR503/g' /etc/board.info
+
 exit 0
-EOL
-chmod +x files/etc/uci-defaults/99-fake-model
+EOF
+chmod +x files/etc/uci-defaults/99_fake_ruijie

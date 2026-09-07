@@ -155,3 +155,12 @@ fi
 exit 0
 EOF
 chmod +x files/etc/uci-defaults/99_fake_ruijie
+# 内核模块，25.12必须编译内置
+CONFIG_PACKAGE_kmod-tun=y
+CONFIG_PACKAGE_kmod-inet-diag=y
+CONFIG_PACKAGE_kmod-nft-tproxy=y
+CONFIG_PACKAGE_libatomic=y
+CONFIG_PACKAGE_libstdcpp=y
+# 把默认ip‑tiny替换成完整版ip‑full
+CONFIG_PACKAGE_ip-full=y
+CONFIG_PACKAGE_ip-tiny=n

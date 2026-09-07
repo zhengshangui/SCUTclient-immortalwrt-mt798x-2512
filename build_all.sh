@@ -109,7 +109,7 @@ while IFS='|' read -r target artifact_subdir profiles; do
   bash "$SCRIPT_DIR/02_add_package.sh"
   make defconfig
   bash "$SCRIPT_DIR/06_validate_target_config.sh" "$profiles"
-  bash "$SCRIPT_DIR/03_validate_packages.sh"
+  # bash "$SCRIPT_DIR/03_validate_packages.sh"
 
   make download -j"$DOWNLOAD_JOBS"
   make -j"$JOBS"

@@ -174,7 +174,7 @@ jobs:
           bash ../02_add_package.sh
           make defconfig
           bash ../06_validate_target_config.sh "$PROFILES"
-          # bash ../03_validate_packages.sh
+          bash ../03_validate_packages.sh
 
       - name: 缓存下载目录
         uses: actions/cache@v5

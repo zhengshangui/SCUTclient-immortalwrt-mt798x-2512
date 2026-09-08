@@ -56,7 +56,7 @@ if (( ${#missing[@]} > 0 )); then
   exit 1
 fi
 
-require_enabled luci-app-sqm
+# require_enabled luci-app-sqm
 require_enabled sqm-scripts
 require_enabled kmod-sched-cake
 require_enabled kmod-ifb

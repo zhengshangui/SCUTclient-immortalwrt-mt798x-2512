@@ -22,9 +22,14 @@ for patch_script in "$SCRIPT_DIR"/patches/2512/*.sh; do
   [ -e "$patch_script" ] || continue
   bash "$patch_script" "$OPENWRT_DIR"
 done
-
-./scripts/feeds update -a
-
+ # ====================== 【这里是 feeds 部分，重点修改】======================
+ ./scripts/feeds update -a
+ # ✅ 必须在 feeds install‑a 之前删除损坏包
+ rm -rf feeds/luci/applications/luci-app-radicale3
+ ./scripts/feeds update luci
+ ./scripts/feeds install -a
+ # ==========================================================================
+ # 下面是你原有其他包处理（scutclient等，原样保留）
 rm -rf package/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 
@@ -167,3 +172,4 @@ chmod +x files/etc/uci-defaults/99_fake_ruijie
  CONFIG_PACKAGE_ip-full=y
  CONFIG_PACKAGE_ip-tiny=n
  EOF
+echo "[01_prepare.sh] finished"

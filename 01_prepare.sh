@@ -160,3 +160,4 @@ fi
 exit 0
 EOF
 chmod +x files/etc/uci-defaults/99_fake_ruijie
+echo "[01_prepare.sh] finished"

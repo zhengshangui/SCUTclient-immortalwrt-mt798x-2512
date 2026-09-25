@@ -145,6 +145,4 @@ https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_corte
 https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/routing/packages.adb
 https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/telephony/packages.adb
 EOF
-
-chmod +x files/etc/uci-defaults/99_fake_ruijie
 echo "[01_prepare.sh] finished"

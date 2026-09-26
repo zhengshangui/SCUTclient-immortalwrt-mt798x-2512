@@ -145,4 +145,22 @@ https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_corte
 https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/routing/packages.adb
 https://mirrors.vsean.net/openwrt/releases/25.12-SNAPSHOT/packages/aarch64_cortex-a53/telephony/packages.adb
 EOF
+# =====伪装网页型号 RuiJie SR503 （FUR‑603底层硬件ID不变）=====
+mkdir -p files/etc/uci-defaults
+cat > files/etc/uci-defaults/99_fake_ruijie <<'EOF'
+#!/bin/sh
+# 替换LuCI首页系统信息 /tmp/sysinfo/model
+echo "RuiJie SR503" > /tmp/sysinfo/model
+
+# 修改 board.json 网页硬件信息
+if [ -f /etc/board.json ]; then
+  sed -i 's|"name": *"HONOR FUR-602/603"|"name":"RuiJie SR503"|g' /etc/board.json
+fi
+
+# 兼容老版 board.info
+[ -f /etc/board.info ] && sed -i 's/HONOR FUR-602\/603/RuiJie SR503/g' /etc/board.info
+
+exit 0
+EOF
+chmod +x files/etc/uci-defaults/99_fake_ruijie
 echo "[01_prepare.sh] finished"
